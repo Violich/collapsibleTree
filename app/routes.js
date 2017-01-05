@@ -10,9 +10,7 @@ module.exports = router;
 
 // route for homepage 
 router.get('/', function(req, res) {
-	//var dbCall = require('dbCall');
-	//dbCall()
-	var data = 'data/flare.json';
-	res.render('pages/index', { data: data });
-	// res.render('pages/index');
+	var file = 'data/flare.json';
+	//var dbCall = require('./dbCall');
+	res.render('index', { data: file });
 });
