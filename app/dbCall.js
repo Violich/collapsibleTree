@@ -5,30 +5,18 @@ var assert = require('assert');
 var url = 'mongodb://localhost:27017/test';
 
 // create db call object
-var dbCall = MongoClient.connect(url, connect_action);
+var dbCall = MongoClient.connect(url, function(err, db ) {
+  assert.equal(null, err);
 
+  var collection = db.collection('flare');
+
+  collection.findOne({},{'_id': false}, function(err, queryObj) {
+    assert.equal(null, err);
+    //console.log(queryObj);
+    return (queryObj);
+    db.close();
+  });
+});
+console.log(dbCall);
 // export db call
 module.exports = dbCall;
-
-function getColl(db, callback) {
-  // Get the documents collection
-  var collection = db.collection('flare');
-  // Find some documents
-    collection.findOne({},{'_id': false}, function(err, docs) {
-    assert.equal(err, null);
-    console.log("Found the following records");
-    console.log(docs)
-    callback(docs);
-  });
-}
-
-function connect_action(err, db) {
-    assert.equal(null, err);
-    console.log("Connected successfully to server");
-    getColl(db, function() {
-      db.close();
-    });
-}
-
-
-
