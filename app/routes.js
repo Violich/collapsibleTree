@@ -22,14 +22,16 @@ var dbCall = MongoClient.connect(url, function(err, db ) {
 
   collection.findOne({},{'_id': false}, function(err, queryObj) {
     assert.equal(null, err);
+    
     //print query result to console
-    console.log(queryObj);
+    console.log(JSON.stringify(queryObj, null, 4));
 
     //define tree data with file
 	//var file = 'data/flare.json';
     
     // define tree data with query data 
     var file = JSON.stringify(queryObj);
+    //var file = queryObj;
     
     //render tree
 	res.render('index', { data: file });
